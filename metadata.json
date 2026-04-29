@@ -1,0 +1,6 @@
+{
+  "name": "EPP Forge: Mock Registry Dashboard",
+  "description": "A comprehensive testing environment for Extensible Provisioning Protocol (EPP) integrations, featuring mock registry state, command templates, and XML visualization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

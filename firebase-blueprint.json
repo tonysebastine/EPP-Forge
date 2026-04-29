@@ -1,0 +1,85 @@
+{
+  "entities": {
+    "Domain": {
+      "title": "Domain Object",
+      "description": "Represents a registered domain in the registry",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "status": { "type": "array", "items": { "type": "string" } },
+        "registrant": { "type": "string" },
+        "contacts": { 
+          "type": "array", 
+          "items": { 
+            "type": "object",
+            "properties": {
+              "type": { "type": "string" },
+              "id": { "type": "string" }
+            }
+          }
+        },
+        "ns": { "type": "array", "items": { "type": "string" } },
+        "crDate": { "type": "string", "format": "date-time" },
+        "exDate": { "type": "string", "format": "date-time" },
+        "secDNS": {
+          "type": "object",
+          "properties": {
+            "maxSigLife": { "type": "integer" },
+            "dsData": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "keyTag": { "type": "integer" },
+                  "alg": { "type": "integer" },
+                  "digestType": { "type": "integer" },
+                  "digest": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["name", "status", "registrant", "ns", "crDate", "exDate"]
+    },
+    "Contact": {
+      "title": "Contact Object",
+      "description": "Represents a contact handle in the registry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "org": { "type": "string" },
+        "email": { "type": "string" },
+        "voice": { "type": "string" },
+        "status": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "name", "email", "voice", "status"]
+    },
+    "Host": {
+      "title": "Host Object",
+      "description": "Represents a nameserver host in the registry",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "addr": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name", "addr", "status"]
+    }
+  },
+  "firestore": {
+    "registries/{registryId}/domains/{domainName}": {
+      "schema": "Domain",
+      "description": "Domains within a specific registry"
+    },
+    "registries/{registryId}/contacts/{contactId}": {
+      "schema": "Contact",
+      "description": "Contacts within a specific registry"
+    },
+    "registries/{registryId}/hosts/{hostName}": {
+      "schema": "Host",
+      "description": "Hosts within a specific registry"
+    }
+  }
+}
