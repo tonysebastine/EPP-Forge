@@ -240,6 +240,13 @@ export const EPP_TEMPLATES: Record<string, string> = {
     <clTRID>ABC-12345</clTRID>
   </command>
 </epp>`,
+  [`${EppCommandType.POLL}`]: `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <poll op="req"/>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>`,
   
   'DOMAIN-UPDATE-DNSSEC': `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <epp xmlns="urn:ietf:params:xml:ns:epp-1.0">

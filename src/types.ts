@@ -11,6 +11,7 @@ export enum EppCommandType {
   INFO = 'info',
   CREATE = 'create',
   DELETE = 'delete',
+  POLL = 'poll',
   UPDATE = 'update',
   RENEW = 'renew',
   TRANSFER = 'transfer',

@@ -142,6 +142,29 @@ class EppService {
       return this.generateResponse('1500', 'Command completed successfully; ending session', clTRID);
     }
 
+    if (lowerXml.includes('<poll')) {
+      const op = xml.match(/op="([^"]+)"/)?.[1] || 'req';
+      if (op === 'req') {
+        const hasMessages = Math.random() > 0.3; // 70% chance of message
+        if (hasMessages) {
+          const msgId = Math.floor(Math.random() * 100000).toString();
+          return this.generateResponse('1301', 'Command completed successfully; ack to dequeue', clTRID, `
+          <resData>
+            <poll:resData xmlns:poll="urn:ietf:params:xml:ns:epp-1.0">
+              <poll:msg count="1" id="${msgId}">
+                <poll:qDate>${new Date().toISOString()}</poll:qDate>
+                <poll:msg>System maintenance scheduled for ${new Date(Date.now() + 86400000).toLocaleDateString()}. Expected downtime: 2 hours.</poll:msg>
+              </poll:msg>
+            </poll:resData>
+          </resData>`);
+        } else {
+          return this.generateResponse('1300', 'Command completed successfully; no messages', clTRID);
+        }
+      } else {
+        return this.generateResponse('1000', 'Command completed successfully', clTRID);
+      }
+    }
+
     if (lowerXml.includes('<check>')) {
       if (lowerXml.includes('domain:check')) {
         const names = this.extractValues(xml, 'domain:name');
